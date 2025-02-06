@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portrait Animation</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #5c6bc0;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #3f51b5;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .result {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+
+        .result p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Bring Your Old Portrait to Life</h2>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <label for="name">Enter Name or Description:</label>
+            <input type="text" name="name" required placeholder="Name or description...">
+            
+            <label for="photo">Upload a Photo:</label>
+            <input type="file" name="photo" id="file" required>
+            <label id="file-selected">No file selected</label>
+
+            <input type="submit" value="Create Animation">
+        </form>
+
+        {% if image %}
+        <div class="result">
+            <h3>Your Animated Video</h3>
+            <video controls>
+                <source src="{{ video }}" type="video/mp4">
+            </video>
+            <p><b>Generated Text:</b> {{ text }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // This script will update the label text when a file is selected
+        document.getElementById("file").addEventListener("change", function(event) {
+            const label = document.getElementById("file-selected");
+            if (event.target.files.length > 0) {
+                label.textContent = event.target.files[0].name;
+            } else {
+                label.textContent = "No file selected";
+            }
+        });
+    </script>
+
+</body>
+</html>
